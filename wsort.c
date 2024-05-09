@@ -3,7 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+
+
+int get_length(char* input) {
+    int length = 0;
+    while(*input != 0) {
+        length++;
+        input++;
+    }
+    return length - 1;
+}
 
 
 //
@@ -21,12 +30,11 @@ static char* create_array(FILE * input_stream) {
     //read the words
     while(!reached_file_end) {
         char* input_line = malloc(MAX_LENGTH + 1);
-        fgets(input_line,MAX_LENGTH + 1 ,input_stream);
-
-        int len =  strlen(input_line);
-        for (int i = len; i < MAX_LENGTH + 1; i++) {
+        for (int i = 0; i < (MAX_LENGTH + 1); i++) {
             input_line[i] = '\0';
         }
+        fgets(input_line,MAX_LENGTH + 1 ,input_stream);
+
 
         bool is_lowercase_letter = input_line[MAX_LENGTH] >= 97 && input_line[MAX_LENGTH] <= 122;
         bool is_uppercase_letter = input_line[MAX_LENGTH] >= 65 && input_line[MAX_LENGTH] <= 90;
@@ -56,6 +64,10 @@ static char* create_array(FILE * input_stream) {
 }
 
 static void char_array_to_output(char* char_array, FILE *out_stream) {
+    if(char_array==NULL) {
+        fputs("Empty Input",stderr);
+        return;
+    }
     char out_string[words_read * 100];
     for(int i = 0; i < (words_read * 100);i++) {
         out_string[i] = '\0';
