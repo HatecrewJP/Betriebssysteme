@@ -1,5 +1,6 @@
 CMakeFiles/Betriebssysteme.dir/wsort.c.obj: \
  C:\Users\JP\CLionProjects\Betriebssysteme\wsort.c \
+ D:/CLion\ 2024.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
@@ -22,9 +23,4 @@ CMakeFiles/Betriebssysteme.dir/wsort.c.obj: \
  D:/CLion\ 2024.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
  D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/errno.h \
  D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/string.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/time.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/sys/timeb.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/_timeval.h \
- D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h
+ D:/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h
