@@ -15,10 +15,10 @@ void wsort(void) {
       //FILE * in_stream = fopen("/home/studi/Desktop/Betriebssysteme/wsort_list/wlist0","r");
 
       //Windows
-      FILE * in_stream = fopen("C:\\Users\\JP\\CLionProjects\\Betriebssysteme\\wsort\\wlist0","r");
+      //FILE * in_stream = fopen("C:\\Users\\JP\\CLionProjects\\Betriebssysteme\\wsort\\wlist-1","r");
 
       //stdin
-      //FILE +in_stream =stdin;
+      FILE *in_stream =stdin;
 
       //initial capacity is 1
       size_t capacity = 1;
@@ -30,21 +30,18 @@ void wsort(void) {
             exit(EXIT_FAILURE);
       }
 
-      char line[MAX_LENGTH+2];
+
       int file_end = 0;
       while(1) {
-            fgets(line, MAX_LENGTH + 2, in_stream);
+            char line[MAX_LENGTH+2];
+            //EOF or ERROR
+            if(fgets(line, MAX_LENGTH + 2, in_stream)==NULL) break;
             file_end = feof(in_stream);
             if(ferror(in_stream)) {
                   perror("Reading error");
                   exit( EXIT_FAILURE);
             }
-            if(line[0] == '\n')continue;
-            if(strlen(line) > MAX_LENGTH) {
-                  perror("word too long");
-                  continue;
-            }
-
+            if(line[0] == '\n' && !file_end)continue;
             //remove word wrap
             if(line[strlen(line) - 1 ] == '\n') line[strlen(line) - 1 ] = '\0';
 
@@ -64,20 +61,32 @@ void wsort(void) {
                   exit(EXIT_FAILURE);
             }
             strcpy(dynamic_word_array[word_count-1],line);
-
-            if(file_end) break;
-
       }
+
+      if(ferror(in_stream)) {
+            perror("Reading Error");
+            exit(EXIT_FAILURE);
+      }
+      if(!feof(in_stream)) {
+            perror("Unknown Error: No reading error, but EOF not reached");
+            exit(EXIT_FAILURE);
+      }
+
       //sort array
       qsort(dynamic_word_array,word_count,sizeof(char*),compare);
 
       //output of the array
       for(int i = 0; i< word_count; i++) {
+            if(strlen(dynamic_word_array[i]) > MAX_LENGTH) {
+                  fprintf(stderr,"Word too long\n");
+                  continue;
+            }
             fprintf(stdout,"%s\n",dynamic_word_array[i]);
             if(ferror(stdout)) {
                   perror("Output error");
                   exit(EXIT_FAILURE);
             }
+
             if(fflush(stdout)){
                   perror("flush error");
                   exit(EXIT_FAILURE);
