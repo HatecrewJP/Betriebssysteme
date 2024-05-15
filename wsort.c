@@ -42,9 +42,9 @@ void wsort(void) {
             if(word_length > MAX_LENGTH) {
                   perror("Word too long");
                   if(line[word_length - 1 ] != '\n') {
-                        int tmp = fgetc(in_stream);
-                        while (tmp != (int)'\n')
-                              tmp = fgetc(in_stream);
+
+                        while (fgetc(in_stream) != (int)'\n');
+
                   }
                   continue;
             }
