@@ -41,13 +41,13 @@ void wsort(void) {
             word_length = strlen(line);
             if(word_length > MAX_LENGTH) {
                   perror("Word too long");
-                  if(line[word_length - 1 ] != '\n')
-                        while (getchar()!= '\n');
+                  if(line[word_length - 1 ] != '\n') {
+                        int tmp = fgetc(in_stream);
+                        while (tmp != (int)'\n')
+                              tmp = fgetc(in_stream);
+                  }
                   continue;
             }
-
-
-
 
             //resize the array if nescessary
             if(word_count >= capacity) {
@@ -83,7 +83,6 @@ void wsort(void) {
       for(int i = 0; i< word_count; i++) {
 
             fprintf(stdout,"%s\n",dynamic_word_array[i]);
-            perror(strlen(dynamic_word_array[i]));
             if(ferror(stdout)) {
                   perror("Output error");
                   exit(EXIT_FAILURE);
