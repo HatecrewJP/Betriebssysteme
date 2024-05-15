@@ -12,7 +12,7 @@ int compare(const void *a, const void *b) {
 void wsort(void) {
       //choose input
       //Unix
-      //FILE * in_stream = fopen("/home/studi/Desktop/Betriebssysteme/wsort_list/wlist0","r");
+      //FILE * in_stream = fopen("/home/studi/Desktop/Betriebssysteme/wsort_list/wlist-2","r");
 
       //Windows
       //FILE * in_stream = fopen("C:\\Users\\JP\\CLionProjects\\Betriebssysteme\\wsort\\wlist-1","r");
@@ -29,21 +29,25 @@ void wsort(void) {
             perror("malloc");
             exit(EXIT_FAILURE);
       }
+      char line[MAX_LENGTH+2];
+      while(fgets(line, sizeof(line), in_stream)) {
+            if(line[0] == '\n')continue;
+            size_t word_length = strlen(line);
 
 
-      int file_end = 0;
-      while(1) {
-            char line[MAX_LENGTH+2];
-            //EOF or ERROR
-            if(fgets(line, MAX_LENGTH + 2, in_stream)==NULL) break;
-            file_end = feof(in_stream);
-            if(ferror(in_stream)) {
-                  perror("Reading error");
-                  exit( EXIT_FAILURE);
-            }
-            if(line[0] == '\n' && !file_end)continue;
             //remove word wrap
-            if(line[strlen(line) - 1 ] == '\n') line[strlen(line) - 1 ] = '\0';
+            if(line[word_length - 1] == '\n')
+                  line[word_length - 1] = '\0';
+            word_length = strlen(line);
+            if(word_length > MAX_LENGTH) {
+                  perror("Word too long");
+                  if(line[word_length - 1 ] != '\n')
+                        while (getchar()!= '\n');
+                  continue;
+            }
+
+
+
 
             //resize the array if nescessary
             if(word_count >= capacity) {
@@ -55,7 +59,7 @@ void wsort(void) {
                   }
             }
             word_count++;
-            dynamic_word_array[word_count-1] = malloc(strlen(line) + 1);
+            dynamic_word_array[word_count-1] = malloc(word_length + 1);
             if(dynamic_word_array[word_count - 1]== NULL) {
                   perror("malloc");
                   exit(EXIT_FAILURE);
@@ -77,11 +81,9 @@ void wsort(void) {
 
       //output of the array
       for(int i = 0; i< word_count; i++) {
-            if(strlen(dynamic_word_array[i]) > MAX_LENGTH) {
-                  fprintf(stderr,"Word too long\n");
-                  continue;
-            }
+
             fprintf(stdout,"%s\n",dynamic_word_array[i]);
+            perror(strlen(dynamic_word_array[i]));
             if(ferror(stdout)) {
                   perror("Output error");
                   exit(EXIT_FAILURE);
@@ -100,4 +102,5 @@ void wsort(void) {
 }
 int main (int argc, char* argv[]) {
       wsort();
+
 }
